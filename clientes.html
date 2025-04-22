@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Web - Clientes</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">Mi Web</div>
+        <div class="nav-menu">
+            <div class="menu-item">
+                <a href="index.html">Página Principal</a>
+            </div>
+            <div class="menu-item active">
+                <a href="clientes.html">Clientes</a>
+            </div>
+            <div class="menu-item">
+                <a href="mascotas.html">Mascotas</a>
+            </div>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h1>Registro de Clientes</h1>
+        <div class="form-container">
+            <form id="clienteForm" class="modern-form">
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="apellido">Apellido</label>
+                    <input type="text" id="apellido" name="apellido" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="dni">DNI</label>
+                    <input type="text" id="dni" name="dni" pattern="[0-9]{8}" title="Por favor ingrese 8 dígitos" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="fechaNacimiento">Fecha de nacimiento</label>
+                    <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="telefono">Número de teléfono</label>
+                    <input type="tel" id="telefono" name="telefono" pattern="[0-9]{9}" title="Por favor ingrese 9 dígitos" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Correo electrónico</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <button type="submit" class="submit-btn">Registrar Cliente</button>
+            </form>
+        </div>
+
+        <div class="table-container">
+            <h2>Clientes Registrados</h2>
+            
+            <div class="search-container">
+                <div class="search-filters">
+                    <div class="form-group">
+                        <input type="text" id="buscarApellido" placeholder="Buscar por apellido...">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="buscarDNI" placeholder="Buscar por DNI...">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="buscarMascota" placeholder="Buscar por nombre de mascota...">
+                    </div>
+                </div>
+            </div>
+
+            <table id="clientesTable" class="modern-table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>DNI</th>
+                        <th>Fecha de Nacimiento</th>
+                        <th>Teléfono</th>
+                        <th>Email</th>
+                        <th>Mascotas</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Aquí se mostrarán los clientes -->
+                    <!-- Template for new rows -->
+                    <template id="clienteRowTemplate">
+                        <tr>
+                            <td data-nombre></td>
+                            <td data-apellido></td>
+                            <td data-dni></td>
+                            <td data-fecha></td>
+                            <td data-telefono></td>
+                            <td data-email></td>
+                            <td data-mascotas></td>
+                            <td>
+                                <button class="btn-agregar-mascota" onclick="window.location.href='mascotas.html'">Agregar Mascota</button>
+                                <button class="btn-editar">Editar</button>
+                                <button class="btn-eliminar">Eliminar</button>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Web - Mascotas</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">Mi Web</div>
+        <div class="nav-menu">
+            <div class="menu-item">
+                <a href="index.html">Página Principal</a>
+            </div>
+            <div class="menu-item">
+                <a href="clientes.html">Clientes</a>
+            </div>
+            <div class="menu-item active">
+                <a href="mascotas.html">Mascotas</a>
+            </div>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h1>Registro de Mascotas</h1>
+        <div class="form-container">
+            <form id="mascotaForm" class="modern-form">
+                <div class="form-group">
+                    <label for="nombreMascota">Nombre</label>
+                    <input type="text" id="nombreMascota" name="nombreMascota" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="fechaNacimientoMascota">Fecha de nacimiento</label>
+                    <input type="date" id="fechaNacimientoMascota" name="fechaNacimientoMascota" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="colorMascota">Color</label>
+                    <input type="text" id="colorMascota" name="colorMascota" required>
+                </div>
+
+                <button type="submit" class="submit-btn">Registrar Mascota</button>
+            </form>
+        </div>
+
+        <div class="table-container">
+            <h2>Mascotas Registradas</h2>
+            <table id="mascotasTable" class="modern-table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Fecha de Nacimiento</th>
+                        <th>Color</th>
+                        <th>Dueño</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Aquí se mostrarán las mascotas -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
