@@ -49,44 +49,38 @@ document.addEventListener('DOMContentLoaded', () => {
     // Manejo del formulario de mascotas
     const mascotaForm = document.getElementById('mascotaForm');
     if (mascotaForm) {
-        const urlParams = new URLSearchParams(window.location.search);
-        const clienteId = urlParams.get('clienteId');
-
-        if (clienteId) {
-            const clientes = JSON.parse(localStorage.getItem('clientes')) || [];
-            const cliente = clientes.find(c => c.id === clienteId);
-            if (cliente) {
-                const titulo = document.querySelector('h1');
-                titulo.textContent = `Registrar Mascota para ${cliente.nombre} ${cliente.apellido}`;
-            }
-        }
+        // Cargar lista de dueños al cargar la página
+        cargarListaDuenos();
 
         mascotaForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
             const mascota = {
                 nombre: document.getElementById('nombreMascota').value,
+                tipo: document.getElementById('tipoMascota').value,
+                raza: document.getElementById('razaMascota').value,
                 fechaNacimiento: document.getElementById('fechaNacimientoMascota').value,
+                sexo: document.getElementById('sexoMascota').value,
                 color: document.getElementById('colorMascota').value,
+                duenioId: document.getElementById('duenioMascota').value,
+                observaciones: document.getElementById('observacionesMascota').value,
                 id: Date.now().toString()
             };
 
-            if (clienteId) {
-                const clientes = JSON.parse(localStorage.getItem('clientes')) || [];
-                const clienteIndex = clientes.findIndex(c => c.id === clienteId);
+            const clientes = JSON.parse(localStorage.getItem('clientes')) || [];
+            const clienteIndex = clientes.findIndex(c => c.id === mascota.duenioId);
+            
+            if (clienteIndex !== -1) {
+                clientes[clienteIndex].mascotas.push(mascota);
+                localStorage.setItem('clientes', JSON.stringify(clientes));
                 
-                if (clienteIndex !== -1) {
-                    clientes[clienteIndex].mascotas.push(mascota);
-                    localStorage.setItem('clientes', JSON.stringify(clientes));
-                    
-                    agregarMascotaATabla(mascota, clientes[clienteIndex].nombre + ' ' + clientes[clienteIndex].apellido);
-                    mascotaForm.reset();
-                    alert('Mascota registrada con éxito');
-                }
+                agregarMascotaATabla(mascota, clientes[clienteIndex].nombre + ' ' + clientes[clienteIndex].apellido);
+                mascotaForm.reset();
+                alert('Mascota registrada con éxito');
             }
         });
 
-        cargarMascotas(clienteId);
+        cargarMascotas();
     }
 
     // Inicializar los filtros si estamos en la página de clientes
@@ -130,9 +124,13 @@ function agregarMascotaATabla(mascota, nombreDueno) {
     
     row.innerHTML = `
         <td>${mascota.nombre}</td>
+        <td>${mascota.tipo}</td>
+        <td>${mascota.raza}</td>
         <td>${formatearFecha(mascota.fechaNacimiento)}</td>
+        <td>${mascota.sexo === 'M' ? 'Macho' : 'Hembra'}</td>
         <td>${mascota.color}</td>
         <td>${nombreDueno || '-'}</td>
+        <td>${mascota.observaciones || '-'}</td>
         <td>
             <button onclick="editarMascota('${mascota.id}')" class="btn-editar">Editar</button>
             <button onclick="eliminarMascota('${mascota.id}')" class="btn-eliminar">Eliminar</button>
@@ -184,8 +182,13 @@ function editarMascota(mascotaId) {
 
     if (mascotaEncontrada) {
         document.getElementById('nombreMascota').value = mascotaEncontrada.nombre;
+        document.getElementById('tipoMascota').value = mascotaEncontrada.tipo;
+        document.getElementById('razaMascota').value = mascotaEncontrada.raza;
         document.getElementById('fechaNacimientoMascota').value = mascotaEncontrada.fechaNacimiento;
+        document.getElementById('sexoMascota').value = mascotaEncontrada.sexo;
         document.getElementById('colorMascota').value = mascotaEncontrada.color;
+        document.getElementById('duenioMascota').value = clienteEncontrado.id;
+        document.getElementById('observacionesMascota').value = mascotaEncontrada.observaciones || '';
         
         // Eliminar la mascota actual
         eliminarMascota(mascotaId);
@@ -259,4 +262,22 @@ function setupFiltros() {
     buscarApellido.addEventListener('input', filtrarTabla);
     buscarDNI.addEventListener('input', filtrarTabla);
     buscarMascota.addEventListener('input', filtrarTabla);
+}
+
+function cargarListaDuenos() {
+    const duenioSelect = document.getElementById('duenioMascota');
+    if (!duenioSelect) return;
+
+    const clientes = JSON.parse(localStorage.getItem('clientes')) || [];
+    
+    // Limpiar opciones existentes
+    duenioSelect.innerHTML = '<option value="">Seleccione un dueño</option>';
+    
+    // Agregar cada cliente como opción
+    clientes.forEach(cliente => {
+        const option = document.createElement('option');
+        option.value = cliente.id;
+        option.textContent = `${cliente.nombre} ${cliente.apellido}`;
+        duenioSelect.appendChild(option);
+    });
 }

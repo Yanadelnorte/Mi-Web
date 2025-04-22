@@ -37,13 +37,51 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="tipoMascota">Tipo de Mascota</label>
+                    <select id="tipoMascota" name="tipoMascota" required>
+                        <option value="">Seleccione un tipo</option>
+                        <option value="perro">Perro</option>
+                        <option value="gato">Gato</option>
+                        <option value="ave">Ave</option>
+                        <option value="otro">Otro</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="razaMascota">Raza/Especie</label>
+                    <input type="text" id="razaMascota" name="razaMascota" required>
+                </div>
+
+                <div class="form-group">
                     <label for="fechaNacimientoMascota">Fecha de nacimiento</label>
                     <input type="date" id="fechaNacimientoMascota" name="fechaNacimientoMascota" required>
                 </div>
 
                 <div class="form-group">
+                    <label for="sexoMascota">Sexo</label>
+                    <select id="sexoMascota" name="sexoMascota" required>
+                        <option value="">Seleccione el sexo</option>
+                        <option value="M">Macho</option>
+                        <option value="H">Hembra</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <label for="colorMascota">Color</label>
                     <input type="text" id="colorMascota" name="colorMascota" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="duenioMascota">Dueño</label>
+                    <select id="duenioMascota" name="duenioMascota" required>
+                        <option value="">Seleccione un dueño</option>
+                        <!-- Los dueños se cargarán dinámicamente desde JavaScript -->
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="observacionesMascota">Observaciones</label>
+                    <textarea id="observacionesMascota" name="observacionesMascota" rows="3"></textarea>
                 </div>
 
                 <button type="submit" class="submit-btn">Registrar Mascota</button>
@@ -56,9 +94,13 @@
                 <thead>
                     <tr>
                         <th>Nombre</th>
+                        <th>Tipo</th>
+                        <th>Raza/Especie</th>
                         <th>Fecha de Nacimiento</th>
+                        <th>Sexo</th>
                         <th>Color</th>
                         <th>Dueño</th>
+                        <th>Observaciones</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
